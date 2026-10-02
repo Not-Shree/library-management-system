@@ -1,0 +1,18 @@
+# Secrets — never commit these
+.env
+backend/.env
+frontend/.env
+backend/application-local.properties
+
+# Build output
+backend/target/
+frontend/dist/
+frontend/node_modules/
+
+# IDE / OS
+.idea/
+*.iml
+.vscode/
+.DS_Store
+Thumbs.db
+*.log

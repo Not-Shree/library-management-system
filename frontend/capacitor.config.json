@@ -1,0 +1,25 @@
+{
+  "appId": "com.college.library",
+  "appName": "College Library",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true
+  },
+  "android": {
+    "allowMixedContent": true
+  },
+  "plugins": {
+    "SystemBars": {
+      "style": "LIGHT",
+      "insetsHandling": "css"
+    },
+    "SplashScreen": {
+      "launchShowDuration": 1200,
+      "launchAutoHide": true,
+      "backgroundColor": "#1B2B3A",
+      "showSpinner": false,
+      "androidScaleType": "CENTER_CROP"
+    }
+  }
+}

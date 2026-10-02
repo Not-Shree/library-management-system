@@ -1,0 +1,30 @@
+# Optional: runs PostgreSQL 16 in Docker and loads the schema + demo data on first start.
+#   cp .env.example .env      (set POSTGRES_PASSWORD)
+#   docker compose up -d
+# The backend and frontend still run normally on your machine (README, Option 2).
+# To reset the database completely:  docker compose down -v && docker compose up -d
+services:
+  postgres:
+    image: postgres:16
+    container_name: library-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-library_db}
+      POSTGRES_USER: ${POSTGRES_USER:-library_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      TZ: Asia/Kolkata
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - library-data:/var/lib/postgresql/data
+      # Scripts in this folder run once, in name order, when the data volume is empty
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./database/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-library_user} -d ${POSTGRES_DB:-library_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  library-data:

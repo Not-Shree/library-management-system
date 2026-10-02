@@ -1,0 +1,5 @@
+package com.college.library.entity;
+
+public enum NotificationType {
+    DUE_SOON, OVERDUE, FINE_GENERATED, RESERVATION_AVAILABLE, RESERVATION_EXPIRED, BOOK_ISSUED, BOOK_RETURNED, BOOK_RENEWED
+}
